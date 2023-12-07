@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "solmate/src/tokens/ERC721.sol";
+import "solady/src/tokens/ERC721.sol";
 
 contract VoterNFT is ERC721 {
 
@@ -35,7 +35,7 @@ contract VoterNFT is ERC721 {
         _;   
     }
  
-    constructor(address centralAuthority) ERC721("VoterNFT", "VOTER") {
+    constructor(address centralAuthority) ERC721() {
         centralAuthorityAddress = centralAuthority;
     }
 
@@ -45,6 +45,14 @@ contract VoterNFT is ERC721 {
         }
         _mint(to, tokenId);
         registeredVoters[to] = true;
+    }
+
+    function name() public pure override returns (string memory) {
+        return "VoterNFT";
+    }
+
+    function symbol() public pure override returns (string memory) {
+        return "vNFT";
     }
 
     function tokenURI(uint256 /* id */) public pure override returns (string memory) {
